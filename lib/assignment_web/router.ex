@@ -6,10 +6,13 @@ defmodule AssignmentWeb.Router do
   end
 
   scope "/" do
-    pipe_through :api
+    pipe_through(:api)
 
-    # forward "/graphiql", Absinthe.Plug.GraphiQL,
-    #   schema: <Enter the name of your Schema here>,
-    #   interface: :playground
+    forward "/api", Absinthe.Plug, schema: AssignmentWeb.GraphQL.Schema
+
+    forward("/graphiql", Absinthe.Plug.GraphiQL,
+      schema: AssignmentWeb.GraphQL.Schema,
+      interface: :simple
+    )
   end
 end
